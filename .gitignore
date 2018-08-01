@@ -1,0 +1,10 @@
+*.apk
+*.iml
+.gradle
+.idea
+app/build
+app/release
+app/google-services.json
+build
+local.properties
+
