@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CompleteDetailsActivity">
+
+    <Spinner
+        android:id="@+id/usrBranch"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="118dp"
+        android:entries="@array/branchNames" />
+
+    <EditText
+        android:id="@+id/usrSection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="198dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter Section" />
+
+    <Spinner
+        android:id="@+id/usrSemester"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="232dp"
+        android:entries="@array/semesterNames" />
+
+    <EditText
+        android:id="@+id/usrPassYr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="146dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter Passout Year" />
+
+    <Button
+        android:id="@+id/startBtn"
+        android:layout_width="126dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
+        android:text="Start" />
+</RelativeLayout>
