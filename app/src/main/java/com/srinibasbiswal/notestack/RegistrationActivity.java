@@ -35,8 +35,8 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (validate()){
                     //update on db
-                    String user_name = usrName.getText().toString();
-                    String user_email = usrEmail.getText().toString().trim();
+                    final String user_name = usrName.getText().toString();
+                    final String user_email = usrEmail.getText().toString().trim();
                     String user_password = usrPswd.getText().toString().trim();
 
                     firebaseAuth.createUserWithEmailAndPassword(user_email,user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -44,7 +44,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegistrationActivity.this,CompleteDetailsActivity.class));
+                                Intent intent = new Intent(RegistrationActivity.this, CompleteDetailsActivity.class);
+                                intent.putExtra("user_name",user_name);
+                                intent.putExtra("user_email",user_email);
+                                startActivity(intent);
                             }
                             else{
                                 Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();

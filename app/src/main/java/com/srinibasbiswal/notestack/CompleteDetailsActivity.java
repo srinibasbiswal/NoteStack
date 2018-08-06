@@ -1,7 +1,9 @@
 package com.srinibasbiswal.notestack;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -9,23 +11,59 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class CompleteDetailsActivity extends AppCompatActivity {
 
     private Spinner usrBranch, usrSemester;
     private EditText usrSection, usrPassYr;
     private Button startBtn;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_details);
+        final String usrName = getIntent().getStringExtra("user_name");
+        final String usrEmail = getIntent().getStringExtra("user_email");
         setupUIViews();
+
+        db = FirebaseFirestore.getInstance();
+
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (validate()){
+                    /*
                     String temp =usrBranch.getSelectedItem().toString()+usrSection.getText().toString()+usrSemester.getSelectedItem().toString()+usrPassYr.getText().toString();
                     Toast.makeText(getApplicationContext(),temp,Toast.LENGTH_SHORT).show();
+                    */
+
+                    Map<String,Object> user  = new HashMap<>();
+                    user.put("UserName",usrName);
+                    user.put("UserEmail",usrEmail);
+                    user.put("UserBranch",usrBranch.getSelectedItem().toString());
+                    user.put("UserSection",usrSection.getText().toString());
+                    user.put("UserSemester",usrSemester.getSelectedItem().toString());
+                    user.put("UserPassoutYear",usrPassYr.getText().toString());
+
+                    db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("userdetail","DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    }) .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("Userdetail","Error",e);
+                        }
+                    });
                 }
             }
         });
