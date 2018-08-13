@@ -18,7 +18,10 @@
         </activity>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".CompleteDetailsActivity" />
-        <activity android:name=".Homepage"></activity>
+        <activity
+            android:name=".Homepage"
+            android:label="@string/title_activity_homepage"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@
         <item>7th</item>
         <item>8th</item>
     </string-array>
+    <string name="title_activity_homepage">Homepage</string>
 </resources>
 
 
