@@ -1,25 +1,85 @@
 package com.srinibasbiswal.notestack;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.io.File;
 
 public class Upload extends AppCompatActivity {
 
     private Spinner noteBranch , noteSemester;
     private EditText noteSubject , noteTeacher , noteSection;
+    private FirebaseStorage storage;
+    private Button selectNote , upload;
+    private TextView selectedNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-
+        storage = FirebaseStorage.getInstance();
         setupUIViews();
-        validate();
+
+        selectNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("application/pdf");
+                startActivityForResult(intent,1212);
+            }
+        });
+        //validate();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1212:
+                if (resultCode == RESULT_OK) {
+                    // Get the Uri of the selected file
+                    Uri uri = data.getData();
+                    String uriString = uri.toString();
+                    File myFile = new File(uriString);
+                    String path = myFile.getAbsolutePath();
+                    String displayName = null;
+
+                    if (uriString.startsWith("content://")) {
+                        Cursor cursor = null;
+                        try {
+                            cursor = Upload.this.getContentResolver().query(uri, null, null, null, null);
+                            if (cursor != null && cursor.moveToFirst()) {
+                                displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                            }
+                        } finally {
+                            cursor.close();
+                        }
+                    } else if (uriString.startsWith("file://")) {
+                        displayName = myFile.getName();
+                    }
+                    selectedNote.setText(displayName);
+                }
+                break;
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+
 
     private void setupUIViews(){
         noteBranch = (Spinner)findViewById(R.id.noteBranch);
@@ -27,6 +87,8 @@ public class Upload extends AppCompatActivity {
         noteSubject = (EditText)findViewById(R.id.noteSubject);
         noteTeacher = (EditText)findViewById(R.id.noteTeacher);
         noteSection = (EditText)findViewById(R.id.noteSection);
+        selectNote = (Button)findViewById(R.id.selectNote);
+        selectedNote = (TextView)findViewById(R.id.selectedNote);
 
         ArrayAdapter<CharSequence> branchAdapter = ArrayAdapter.createFromResource(this,R.array.branchNames, android.R.layout.simple_spinner_item);
         branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

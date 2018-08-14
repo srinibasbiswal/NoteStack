@@ -54,10 +54,10 @@
         android:layout_marginBottom="186dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Teacher Name" />
+        android:hint="Teacher Name" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/selectNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -67,13 +67,21 @@
         android:text="Select Notes" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="59dp"
         android:text="Upload" />
+
+    <TextView
+        android:id="@+id/selectedNote"
+        android:layout_width="210dp"
+        android:layout_height="33dp"
+        android:layout_alignStart="@+id/upload"
+        android:layout_alignTop="@+id/selectNote"
+        android:text="" />
 
 
 </RelativeLayout>
