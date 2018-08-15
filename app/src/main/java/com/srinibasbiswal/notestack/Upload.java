@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
@@ -22,15 +27,16 @@ public class Upload extends AppCompatActivity {
 
     private Spinner noteBranch , noteSemester;
     private EditText noteSubject , noteTeacher , noteSection;
-    private FirebaseStorage storage;
+    private FirebaseStorage storage= FirebaseStorage.getInstance();
+    private StorageReference filepath;
     private Button selectNote , upload;
     private TextView selectedNote;
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        storage = FirebaseStorage.getInstance();
         setupUIViews();
 
         selectNote.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +48,25 @@ public class Upload extends AppCompatActivity {
                 startActivityForResult(intent,1212);
             }
         });
-        //validate();
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (validate()){
+                    filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(Upload.this, " Upload Success" , Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Upload.this,"Upload Failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
     }
 
     @Override
@@ -51,8 +75,8 @@ public class Upload extends AppCompatActivity {
             case 1212:
                 if (resultCode == RESULT_OK) {
                     // Get the Uri of the selected file
-                    Uri uri = data.getData();
-                    String uriString = uri.toString();
+                    uri = data.getData();
+                    filepath = storage.getReference().child("Notes").child(uri.getLastPathSegment());                    String uriString = uri.toString();
                     File myFile = new File(uriString);
                     String path = myFile.getAbsolutePath();
                     String displayName = null;
@@ -74,6 +98,7 @@ public class Upload extends AppCompatActivity {
                 }
                 break;
 
+
         }
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -89,6 +114,7 @@ public class Upload extends AppCompatActivity {
         noteSection = (EditText)findViewById(R.id.noteSection);
         selectNote = (Button)findViewById(R.id.selectNote);
         selectedNote = (TextView)findViewById(R.id.selectedNote);
+        upload = (Button)findViewById(R.id.upload);
 
         ArrayAdapter<CharSequence> branchAdapter = ArrayAdapter.createFromResource(this,R.array.branchNames, android.R.layout.simple_spinner_item);
         branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -105,8 +131,9 @@ public class Upload extends AppCompatActivity {
         String Semester = noteSemester.getSelectedItem().toString();
         String Subject = noteSubject.getText().toString();
         String Section = noteSection.getText().toString();
+        String SelectedNote = selectedNote.getText().toString();
 
-        if (Branch.equals("Select Branch") && Section.isEmpty() && Semester.equals("Select Semester") && Subject.isEmpty())
+        if (Branch.equals("Select Branch") && Section.isEmpty() && Semester.equals("Select Semester") && Subject.isEmpty() && SelectedNote.equals(""))
             Toast.makeText(this,"Please Enter All The Details",Toast.LENGTH_SHORT).show();
         else
             result = true;

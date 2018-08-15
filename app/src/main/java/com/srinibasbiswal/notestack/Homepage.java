@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 public class Homepage extends AppCompatActivity {
 
@@ -21,7 +22,9 @@ public class Homepage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Homepage.this, Upload.class));
+                Toast.makeText(Homepage.this,"Clicked",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Homepage.this, Upload.class);
+                startActivity(intent);
             }
         });
     }
