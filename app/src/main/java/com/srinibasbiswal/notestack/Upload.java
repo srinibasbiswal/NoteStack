@@ -7,6 +7,7 @@ import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,17 +18,25 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Upload extends AppCompatActivity {
 
     private Spinner noteBranch , noteSemester;
     private EditText noteSubject , noteTeacher , noteSection;
     private FirebaseStorage storage= FirebaseStorage.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference filepath;
     private Button selectNote , upload;
     private TextView selectedNote;
@@ -55,6 +64,31 @@ public class Upload extends AppCompatActivity {
                     filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Uri downloadUrl = uri;
+                                    Map<String,Object> note = new HashMap<>();
+                                    note.put("Subject",noteSubject.getText().toString());
+                                    note.put("Branch",noteBranch.getSelectedItem().toString());
+                                    note.put("Semester",noteSemester.getSelectedItem().toString());
+                                    note.put("Teacher",noteTeacher.getText().toString());
+                                    note.put("Download URL",downloadUrl.toString());
+                                    note.put("Student Name",user.getDisplayName().toString());
+
+                                    db.collection("notes").document(noteBranch.getSelectedItem().toString()).set(note).addOnSuccessListener(new OnSuccessListener < Void > () {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(Upload.this, "Notes Added",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(Upload.this,"Failed",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
                             Toast.makeText(Upload.this, " Upload Success" , Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -76,7 +110,7 @@ public class Upload extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     // Get the Uri of the selected file
                     uri = data.getData();
-                    filepath = storage.getReference().child("Notes").child(uri.getLastPathSegment());                    String uriString = uri.toString();
+                    filepath = storage.getReference().child(noteBranch.getSelectedItem().toString().trim()).child(noteSemester.getSelectedItem().toString().trim()).child(uri.getLastPathSegment());                    String uriString = uri.toString();
                     File myFile = new File(uriString);
                     String path = myFile.getAbsolutePath();
                     String displayName = null;
@@ -127,13 +161,13 @@ public class Upload extends AppCompatActivity {
 
     private Boolean validate(){
         Boolean result = false;
-        String Branch = noteBranch.getSelectedItem().toString();
-        String Semester = noteSemester.getSelectedItem().toString();
+        String Branch = noteBranch.getSelectedItem().toString().trim();
+        String Semester = noteSemester.getSelectedItem().toString().trim();
         String Subject = noteSubject.getText().toString();
         String Section = noteSection.getText().toString();
         String SelectedNote = selectedNote.getText().toString();
 
-        if (Branch.equals("Select Branch") && Section.isEmpty() && Semester.equals("Select Semester") && Subject.isEmpty() && SelectedNote.equals(""))
+        if (Branch.equals("SelectBranch") && Section.isEmpty() && Semester.equals("SelectSemester") && Subject.isEmpty() && SelectedNote.equals(""))
             Toast.makeText(this,"Please Enter All The Details",Toast.LENGTH_SHORT).show();
         else
             result = true;
