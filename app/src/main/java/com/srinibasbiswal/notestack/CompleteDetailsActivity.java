@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,6 +28,7 @@ public class CompleteDetailsActivity extends AppCompatActivity {
     private EditText usrSection, usrPassYr;
     private Button startBtn;
     private FirebaseFirestore db;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class CompleteDetailsActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),temp,Toast.LENGTH_SHORT).show();
                     */
 
+                    UserProfileChangeRequest profileUpdate  = new UserProfileChangeRequest.Builder().setDisplayName(usrName).build();
+                    user.updateProfile(profileUpdate);
                     Map<String,Object> user  = new HashMap<>();
                     user.put("UserName",usrName);
                     user.put("UserEmail",usrEmail);

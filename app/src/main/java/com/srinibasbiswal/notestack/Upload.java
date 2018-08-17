@@ -68,6 +68,7 @@ public class Upload extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Uri downloadUrl = uri;
+                                    String name = user.getDisplayName();
                                     Map<String,Object> note = new HashMap<>();
                                     note.put("Subject",noteSubject.getText().toString());
                                     note.put("Branch",noteBranch.getSelectedItem().toString());
@@ -76,15 +77,15 @@ public class Upload extends AppCompatActivity {
                                     note.put("Download URL",downloadUrl.toString());
                                     note.put("Student Name",user.getDisplayName().toString());
 
-                                    db.collection("notes").document(noteBranch.getSelectedItem().toString()).set(note).addOnSuccessListener(new OnSuccessListener < Void > () {
+                                    db.collection("notes").document(noteBranch.getSelectedItem().toString()).collection(noteSemester.getSelectedItem().toString()).add(note).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(Upload.this, "Notes Added",Toast.LENGTH_SHORT).show();
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Toast.makeText(Upload.this, " Added Success" , Toast.LENGTH_SHORT).show();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(Upload.this,"Failed",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Upload.this, " Upload Failed" , Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
