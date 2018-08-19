@@ -2,16 +2,17 @@ package com.srinibasbiswal.notestack;
 
 public class Notes {
 
-    String noteSubject, noteSemester, noteBranch;
+    String noteSubject, noteSemester, noteBranch, downloadURL;
 
     public Notes(){
 
     }
 
-    public  Notes(String noteSubject, String noteSemester, String noteBranch){
+    public  Notes(String noteSubject, String noteSemester, String noteBranch, String downloadURL){
         this.noteSubject = noteSubject;
         this.noteSemester = noteSemester;
         this.noteBranch = noteBranch;
+        this.downloadURL = downloadURL;
     }
 
     public String getNoteSubject() {
@@ -36,6 +37,14 @@ public class Notes {
 
     public void setNoteBranch(String noteBranch) {
         this.noteBranch = noteBranch;
+    }
+
+    public String getDownloadURL() {
+        return downloadURL;
+    }
+
+    public void setDownloadURL(String downloadURL) {
+        this.downloadURL = downloadURL;
     }
 
 

@@ -57,6 +57,7 @@ public class Upload extends AppCompatActivity {
                 startActivityForResult(intent,1212);
             }
         });
+
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,12 +71,12 @@ public class Upload extends AppCompatActivity {
                                     Uri downloadUrl = uri;
                                     String name = user.getDisplayName();
                                     Map<String,Object> note = new HashMap<>();
-                                    note.put("Subject",noteSubject.getText().toString());
-                                    note.put("Branch",noteBranch.getSelectedItem().toString());
-                                    note.put("Semester",noteSemester.getSelectedItem().toString());
-                                    note.put("Teacher",noteTeacher.getText().toString());
-                                    note.put("Download URL",downloadUrl.toString());
-                                    note.put("Student Name",user.getDisplayName().toString());
+                                    note.put("noteSubject",noteSubject.getText().toString());
+                                    note.put("noteBranch",noteBranch.getSelectedItem().toString());
+                                    note.put("noteSemester",noteSemester.getSelectedItem().toString());
+                                    note.put("noteTeacher",noteTeacher.getText().toString());
+                                    note.put("downloadURL",downloadUrl.toString());
+                                    note.put("studentName",user.getDisplayName().toString());
 
                                     db.collection("notes").document(noteBranch.getSelectedItem().toString()).collection(noteSemester.getSelectedItem().toString()).add(note).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
