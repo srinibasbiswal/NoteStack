@@ -48,7 +48,7 @@ public class CompleteDetailsActivity extends AppCompatActivity {
                     String temp =usrBranch.getSelectedItem().toString()+usrSection.getText().toString()+usrSemester.getSelectedItem().toString()+usrPassYr.getText().toString();
                     Toast.makeText(getApplicationContext(),temp,Toast.LENGTH_SHORT).show();
                     */
-
+                    String uid = user.getUid();
                     UserProfileChangeRequest profileUpdate  = new UserProfileChangeRequest.Builder().setDisplayName(usrName).build();
                     user.updateProfile(profileUpdate);
                     Map<String,Object> user  = new HashMap<>();
@@ -58,6 +58,7 @@ public class CompleteDetailsActivity extends AppCompatActivity {
                     user.put("UserSection",usrSection.getText().toString());
                     user.put("UserSemester",usrSemester.getSelectedItem().toString());
                     user.put("UserPassoutYear",usrPassYr.getText().toString());
+                    user.put("uid",uid);
 
                     db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
