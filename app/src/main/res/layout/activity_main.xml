@@ -15,6 +15,7 @@
         android:layout_marginTop="199dp"
         android:ems="10"
         android:hint="Email ID"
+        android:background="@drawable/input_edittext"
         android:inputType="textEmailAddress" />
 
     <EditText

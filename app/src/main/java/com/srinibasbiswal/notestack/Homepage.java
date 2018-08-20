@@ -64,16 +64,19 @@ public class Homepage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-/*
-        download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        /*
+           download.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   String url = urldemo.getText().toString();
+                   Toast.makeText(Homepage.this, url, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(urldemo.getText().toString()));
                 startActivity(intent);
-            }
-        });
-*/
+               }
+           });
+           */
+
         db.collection("notes").document("(CSIT) Computer Science and Information Technology").collection("3rd").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
