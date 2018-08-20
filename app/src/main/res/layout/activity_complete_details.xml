@@ -4,54 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CompleteDetailsActivity">
+    tools:context=".CompleteDetailsActivity"
+    android:background="@drawable/gradient">
 
     <Spinner
         android:id="@+id/usrBranch"
         android:layout_width="207dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="118dp"
+        android:background="#11000000"
         android:entries="@array/branchNames" />
 
     <EditText
         android:id="@+id/usrSection"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="198dp"
+        android:background="#11000000"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Enter Section" />
+        android:hint="Enter Section"
+        android:textColorHint="@color/black"
+        android:inputType="textPersonName" />
 
     <Spinner
         android:id="@+id/usrSemester"
         android:layout_width="205dp"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="232dp"
+        android:background="#11000000"
         android:entries="@array/semesterNames" />
 
     <EditText
         android:id="@+id/usrPassYr"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="53dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="146dp"
+        android:background="#11000000"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Enter Passout Year" />
+        android:hint="Enter Passout Year"
+        android:textColorHint="@color/black"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/startBtn"
         android:layout_width="126dp"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="52dp"
+        android:background="#44A08D"
         android:text="Start" />
 </RelativeLayout>

@@ -4,11 +4,11 @@
 
     <TextView
         android:id="@+id/noteSubject"
-        android:layout_width="match_parent"
+        android:layout_width="271dp"
         android:layout_height="41dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="113dp"
         android:layout_marginTop="29dp"
         android:text="TextView" />
 
@@ -23,10 +23,11 @@
 
     <TextView
         android:id="@+id/noteSemester"
-        android:layout_width="205dp"
-        android:layout_height="30dp"
+        android:layout_width="89dp"
+        android:layout_height="32dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="116dp"
         android:layout_marginTop="124dp"
         android:text="TextView" />
 
@@ -37,7 +38,7 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/noteBranch"
         android:layout_marginEnd="16dp"
-        android:text="Button" />
+        android:text="Download" />
 
     <TextView
         android:id="@+id/urldemo"
@@ -47,4 +48,28 @@
         android:layout_alignParentTop="true"
         android:text="TextView"
         android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="106dp"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/noteSubject"
+        android:text="Subject : " />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="103dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/noteSemester"
+        android:text="Semester : " />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="?android:attr/listDivider" />
 </RelativeLayout>

@@ -4,38 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/gradient">
 
     <EditText
         android:id="@+id/usrEmail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="51dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="199dp"
+        android:height="150px"
+        android:background="#11000000"
+        android:drawableLeft="@drawable/user"
         android:ems="10"
-        android:hint="Email ID"
-        android:background="@drawable/input_edittext"
-        android:inputType="textEmailAddress" />
+        android:hint=" Email ID"
+        android:textColorHint="@color/black"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/usrPswd"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="248dp"
+        android:background="#11000000"
+        android:drawableLeft="@drawable/password"
         android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        android:hint=" Password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/loginBtn"
-        android:layout_width="133dp"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="169dp"
+        android:background="#44A08D"
         android:text="Login" />
 
     <TextView
@@ -45,5 +55,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="114dp"
+        android:textColor="@color/black"
         android:text="Don't have an account? Register here" />
+
+
 </RelativeLayout>

@@ -4,75 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Upload">
+    tools:context=".Upload"
+    android:background="@drawable/gradient">
 
     <EditText
-    android:id="@+id/noteSubject"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="36dp"
-    android:ems="10"
-    android:inputType="textPersonName"
-    android:hint="Name of Subject" />
+        android:id="@+id/noteSubject"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="36dp"
+        android:background="#11000000"
+        android:ems="10"
+        android:textColorHint="@color/black"
+        android:hint="Name of Subject"
+        android:inputType="textPersonName" />
 
     <Spinner
         android:id="@+id/noteBranch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="47dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="104dp" />
+        android:layout_marginTop="104dp"
+        android:background="#11000000" />
 
     <EditText
         android:id="@+id/noteSection"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="174dp"
+        android:background="#11000000"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Section" />
+        android:hint="Section"
+        android:textColorHint="@color/black"
+        android:inputType="textPersonName" />
 
     <Spinner
         android:id="@+id/noteSemester"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="247dp" />
+        android:layout_marginTop="247dp"
+        android:background="#11000000" />
 
     <EditText
         android:id="@+id/noteTeacher"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="186dp"
+        android:background="#11000000"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Teacher Name" />
+        android:hint="Teacher Name"
+        android:textColorHint="@color/black"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/selectNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="105dp"
+        android:layout_height="41dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="117dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="0dp"
+        android:background="#44A08D"
         android:text="Select Notes" />
 
     <Button
         android:id="@+id/upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="69dp"
+        android:layout_height="41dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="59dp"
+        android:layout_marginBottom="36dp"
+        android:background="#44A08D"
         android:text="Upload" />
 
     <TextView
@@ -81,7 +92,8 @@
         android:layout_height="33dp"
         android:layout_alignStart="@+id/upload"
         android:layout_alignTop="@+id/selectNote"
-        android:text="" />
+        android:text=""
+        android:textColor="@color/black"/>
 
 
 </RelativeLayout>
