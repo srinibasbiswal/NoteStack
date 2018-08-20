@@ -82,6 +82,7 @@ public class Upload extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
                                             Toast.makeText(Upload.this, " Added Success" , Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(Upload.this,Homepage.class));
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override

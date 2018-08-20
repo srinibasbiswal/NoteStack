@@ -1,5 +1,6 @@
 package com.srinibasbiswal.notestack;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,6 +65,7 @@ public class CompleteDetailsActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d("userdetail","DocumentSnapshot added with ID: " + documentReference.getId());
+                            startActivity(new Intent(CompleteDetailsActivity.this,Homepage.class));
                         }
                     }) .addOnFailureListener(new OnFailureListener() {
                         @Override
